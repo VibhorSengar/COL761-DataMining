@@ -9,7 +9,7 @@
 #include "fptree.hpp"
 
 
-Transaction split_string(std::string s,int& max_item){
+Transaction split_string(std::string s,int& max_item,long long& item_count){
     Transaction nums;
     int p;
     std::string k="";
@@ -29,6 +29,7 @@ Transaction split_string(std::string s,int& max_item){
         if(p>max_item) max_item = p;
         nums.push_back(p);
     }
+    item_count+=nums.size();
     return nums;
 }
 
@@ -70,13 +71,25 @@ int main(int argc, const char *argv[])
     int max_item = 0;
     std::string s;
 
+    long long item_count = 0;
     while(getline(fin,s)){
-        transactions.push_back(split_string(s,max_item));
+        transactions.push_back(split_string(s,max_item,item_count));
     }
     max_item++;
 
+    int factor;
     int num_trans = transactions.size();
-    const int minimum_support_threshold = num_trans*0.7;
+
+    if(item_count<=400000){
+        factor = 0.75;
+    }
+    else if(item_count<20000000){
+        factor = 0.005;
+    }
+    else{
+        factor = 0.25;
+    }
+    const int minimum_support_threshold = num_trans*factor;
 
     std::cout<<"Frequent set Mining started...."<<std::endl;
 
