@@ -77,7 +77,7 @@ int main(int argc, const char *argv[])
     }
     max_item++;
 
-    int factor;
+    float factor;
     int num_trans = transactions.size();
 
     if(item_count<=400000){
