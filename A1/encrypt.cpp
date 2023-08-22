@@ -81,7 +81,7 @@ int main(int argc, const char *argv[])
     int num_trans = transactions.size();
 
     if(item_count<=400000){
-        factor = 0.75;
+        factor = 0.5;
     }
     else if(item_count<20000000){
         factor = 0.005;
